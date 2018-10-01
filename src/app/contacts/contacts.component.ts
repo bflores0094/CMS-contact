@@ -7,20 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactsComponent implements OnInit {
 
-  public contactId;
-  public name;
-  public email;
-  public phone;
-  public imageUrl;
-  public group;
+  public contactId: number;
+  public name: string;
+  public email: string;
+   public phone: string;
+    public imageUrl: string;
+  public group: string;
 
-  constructor(contactId, name, email, phone, imageUrl, group) {
-    this.contactId = contactId;
-    this.name = name;
-    this.email = email;
-    this.phone = phone;
-    this.imageUrl = imageUrl;
-    this.group = group;
+  constructor() {
+    this.contactId;
+    this.name;
+    this.email;
+    this.phone;
+    this.imageUrl;
+    this.group;
+
+    
    }
 
   
