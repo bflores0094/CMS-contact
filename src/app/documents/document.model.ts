@@ -1,17 +1,11 @@
-export class Document {
-    public documentId: number;
-    public documentName: string;
-    public description: string;
-    public docUrl: string;
-    public children: string;
 
-    constructor(documentId: number, documentName: string, description: string,
-        docUrl: string, children: string){
+export class Document{
 
-        this.documentId = documentId;
-        this.documentName = documentName;
-        this.description = description;
-        this.docUrl = docUrl;
-        this.children = children;    
+    constructor(public id: string,
+                public name: string,
+                public description: string,
+                public url: string,
+                public children: Document[]){
+
     }
 }

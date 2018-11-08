@@ -1,20 +1,15 @@
-export class Contact {
-    public contactId: number;
-    public name: string;
-    public phone: string;
-    public email: string;
-    public imageUrl: string;
-    public group: string;
+import {Injectable} from '@angular/core';
 
-    constructor(contactId: number, name: string, phone: string,
-        email: string, imageUrl: string, group: string){
+@Injectable()
+export class Contact{
 
-        this.contactId = contactId;
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.imageUrl = imageUrl;
-        this.group = group;
-    
+    constructor(public id: string,
+                public name: string,
+                public email: string,
+                public phone: string,
+                public imageUrl: string,
+                public group: Contact[]){
+                    
+
     }
 }
