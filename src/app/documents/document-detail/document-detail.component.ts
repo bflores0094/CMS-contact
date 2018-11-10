@@ -48,6 +48,6 @@ nativeWindow: any;
         console.log(this.document);
       }
     );
-  }
+  } 
 
 }
