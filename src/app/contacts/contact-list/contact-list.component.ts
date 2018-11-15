@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
 import { Subscription } from 'rxjs';
+import { DndModule } from 'ng2-dnd';
 
 @Component({
   selector: 'cms-contact-list',
