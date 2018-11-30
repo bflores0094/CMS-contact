@@ -13,9 +13,15 @@ export class ContactListComponent implements OnInit {
   
   subscription: Subscription;
   contacts: Contact[] = [];
+  term: string;
 
   constructor(private contactService: ContactService) { 
 
+  }
+
+  onKeyPress(value: string){
+    this.term = value;
+    
   }
 
   ngOnInit() {

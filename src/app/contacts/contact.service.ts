@@ -2,6 +2,8 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Contact } from '../contacts/contact.model';
 import { MOCKCONTACTS } from './MOCKCONTACTS';
 import { Subject } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +18,28 @@ export class ContactService {
   maxId = new Number();
   maxContactId: any;
   
-  getContacts(): Contact[]{
-      return this.contacts.slice();
+  getContacts(){
+    this.http.get('https://cmscontacts-bd452.firebaseio.com/contacts.json')
+    .subscribe(
+      (contacts: Contact[]) => {
+        this.contacts = contacts;
+        this.maxId = this.getMaxId();
+        this.contactListChangedEvent.next(this.contacts.slice());
+      }, (error: any) => {
+        console.log('Error getting documents');
+      }
+    );
+  }
+
+  storeContacts(contacts: Contact[]){
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    this.http.put('https://cmscontacts-bd452.firebaseio.com/contacts.json', contacts, 
+    {headers: headers})
+    .subscribe(
+      (response: Response) => {
+      this.contactListChangedEvent.next(contacts.slice());
+      }
+    );
   }
 
   getContact(id: string): Contact{
@@ -61,8 +83,8 @@ export class ContactService {
     this.maxContactId++;
     newContact.id = this.maxContactId;
     this.contacts.push(newContact);
-    this.contactsClone = this.contacts.slice();
-    this.contactListChangedEvent.next(this.contactsClone);
+   // this.contactsClone = this.contacts.slice();
+    this.storeContacts(this.contacts);
   }
 
   updateContact(originalContact: Contact, newContact: Contact){
@@ -79,7 +101,6 @@ export class ContactService {
     this.contactListChangedEvent.next(this.contactsClone);
   }
 
-  constructor() { 
-    this.contacts = MOCKCONTACTS;
+  constructor(private http: HttpClient) { 
   }
 }
