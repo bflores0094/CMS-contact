@@ -17,11 +17,12 @@ onAddMessage(message: Message){
 
   constructor(private messagesService: MessagesService) {
 
-    this.messages = messagesService.getMessages();
    }
 
   ngOnInit() {
-    this.messagesService.messageChangeEmitter.subscribe(
+    this.messagesService.getMessages();
+
+    this.messagesService.messageListChangedEvent.subscribe(
       (messagesUpdate: Message[])=>{
         this.messages = messagesUpdate;
       }

@@ -20,7 +20,7 @@ export class DocumentsService {
 
 
  getDocuments() {
-    this.http.get('https://cmscontacts-bd452.firebaseio.com/documents.json')
+    this.http.get('https://localhost:3000/documents')
       .subscribe(
         (documents: Document[]) => {
           this.documents = documents;
@@ -71,6 +71,24 @@ export class DocumentsService {
     if (!newDocument){
       return;
     }
+    const headers = new Headers({
+      'Content-Type':'application/json'
+    });
+   newDocument.id = '';
+   const strDocument = JSON.stringify(newDocument);
+
+   this.http.post('https://localhost:3000/documents', strDocument, {headers: headers})
+   .map(
+     (response: Response) => {
+        return response.json().obj;
+
+     })
+     .subscribe(
+       (documents: Document[]) => {
+         this.documents = documents;
+         this.documentChangedEvent.next(this.documents.slice());
+       }
+     )
     this.maxDocumentId++;
     newDocument.id = this.maxDocumentId.toString();
     this.documents.push(newDocument);
